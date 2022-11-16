@@ -1,0 +1,904 @@
+********Version Control Tool*********
+** Vesion control, also known as source control, is the practice of tracking and managing changes to software code.
+** There are two types of version control:
+1. Distributed version control:
+-> Distributed version control means local repository acts like a complete version control.
+-> developers -> local repository -> central/remote repository
+
+2. Centralized version control:
+-> In a centralized version control system (CVCS), a server acts as the main repository which stores every version of code. Using centralized source control, every user commits directly to the main branch, so this type of version control often works well for small teams, because team members have the ability to communicate quickly so that no two developers want to work on the same piece of code simultaneously. Strong communication and collaboration are important to ensure a centralized workflow is successful.
+-> developers -> central/remote repository
+** Examples:
+1. git/github
+2. bitbucket
+3. subversion
+4. microsoft tfvc, etc, ...
+
+
+*********github & git**********
+**git:
+-> git is a software(distributed version control tool) for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development.
+-> git is also called SCM(Source Code Management) tool.
+
+**github:
+-> github is a internet hosting service for git repositories. 
+-> it offers the distributed version control and source code management functionality of git, plus its own features.
+
+**Difference b/w git & github:
+1. 
+git: git is a software or command-line tool
+github: github is a hosting service for git repositories
+2.
+git: git is installed and maintained on your local system(rather than in the cloud)
+github: github is hosted on web(cloud), so it is exclusively cloud based
+3.
+git: it provides command line interface(CLI)
+github: it provides graphical line interface(GLI)
+4.
+git: it is a tool to manage different versions of edits, made to files in a git repository
+github: it is a space to upload a copy of the git repository
+5.
+git: it provides functionalities like VCS(Version Control System), SCM(Source Code Management)
+github: it functionalities of git like VCS, SCM as well as adding few of its own features
+
+**Installing a git in Linux OS:
+# yum install git -y
+# rpm -qa|grep git
+
+**git repository:
+-> a git repository is a virtual storage of your project.
+-> it allows you to save versions of your code, which you can access when needed.
+
+**Initializing a new repository:
+-> There are two ways to initialize a new repo.
+
+1). using "git init":  
+* To create a new repo, you'll use the 'git init' command. 'git init' is a one-time command you use during the initial setup of a new repo. Executing this command will create a new '.git' subdirectory in your current working directory. This will also create a new main branch.
+* Syntax:
+a.
+# cd /path/to/the/existing/code
+# git init
+b.
+# git init <project directory>
+
+-> Example:
+[root@ip-172-31-35-204 ~]# mkdir repo1
+[root@ip-172-31-35-204 ~]# cd repo1
+[root@ip-172-31-35-204 repo1]# git init
+.
+.
+Initialized empty Git repository in /root/repo1/.git/
+[root@ip-172-31-35-204 repo1]# ls -a
+.  ..  .git
+[root@ip-172-31-35-204 repo1]# cd .git
+[root@ip-172-31-35-204 .git]# ls
+branches  config  description  HEAD  hooks  info  objects  refs
+[root@ip-172-31-35-204 .git]# cd ..
+[root@ip-172-31-35-204 repo1]# git config --global user.name "GVIDUBHUSHANRAO"
+[root@ip-172-31-35-204 repo1]# git config --global user.email "ayirplnahsuhb@gmail.com"
+[root@ip-172-31-35-204 repo1]# touch f1 f2 f3
+[root@ip-172-31-35-204 repo1]# git add .
+[root@ip-172-31-35-204 repo1]# git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   f1
+        new file:   f2
+        new file:   f3
+[root@ip-172-31-35-204 repo1]# git commit -m "creating files f1, f2, and f3"
+[master (root-commit) d2fd8ce] creating files f1, f2, and f3
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f1
+ create mode 100644 f2
+ create mode 100644 f3
+[root@ip-172-31-35-204 repo1]# git status
+On branch master
+nothing to commit, working tree clean
+[root@ip-172-31-35-204 repo1]# git log
+commit d2fd8ceaa056dbc54ebe96a40f5ce1592b917e1c (HEAD -> master)
+Author: GVIDUBHUSHANRAO <ayirplnahsuhb@gmail.com>
+Date:   Fri Nov 4 11:06:24 2022 +0000
+
+    creating files f1, f2, and f3
+[root@ip-172-31-35-204 repo1]# git remote -v
+[root@ip-172-31-35-204 repo1]#
+* to push this repository to github.com follow the steps below,
+step:1:- create a new repository with name 'repo1' in github.com
+step:2:- copy the URL of that repository and add the copied URL as follows,
+[root@ip-172-31-35-204 repo1]# git remote add vidu https://github.com/GVIDUBHUSHANRAO/repo1.git
+[root@ip-172-31-35-204 repo1]# git remote -v
+vidu    https://github.com/GVIDUBHUSHANRAO/repo1.git (fetch)
+vidu    https://github.com/GVIDUBHUSHANRAO/repo1.git (push)
+[root@ip-172-31-35-204 repo1]# git push vidu master
+Username for 'https://github.com': GVIDUBHUSHANRAO
+Password for 'https://GVIDUBHUSHANRAO@github.com':
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 243 bytes | 243.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ * [new branch]      master -> master
+
+* In real time, we need to pull first using git pull command.
+* check the repository in github, you will find the f1, f2, and f3 are added.
+
+2). using "git clone": (easy and recommended)
+* The git clone is a command-line utility which is used to make a local copy of a remote repository. It accesses the repository through a remote URL  
+* It creates a folder(with the name of repository) and copies all the files and folders and initiates git.
+* Syntax:
+git clone URL
+
+* steps to use git clone command:
+step:1:- create a new repository in github.com  and copy the URL.
+step:2:- use the URL in git clone command as follows,
+[root@ip-172-31-40-67 ~]# ls
+[root@ip-172-31-40-67 ~]# git clone https://github.com/GVIDUBHUSHANRAO/repo1.git
+Cloning into 'repo1'...
+warning: You appear to have cloned an empty repository.
+[root@ip-172-31-45-78 ~]# ls
+repo1
+[root@ip-172-31-45-78 ~]# cd repo1
+[root@ip-172-31-45-78 repo1]# ls -a
+.  ..  .git
+[root@ip-172-31-45-78 repo1]# git config --global user.name "GVIDUBHUSHANRAO"
+[root@ip-172-31-45-78 repo1]# git config --global user.email "ayirplnahsuhb@gmail.com"
+[root@ip-172-31-45-78 repo1]# touch f1 f2 f3
+[root@ip-172-31-45-78 repo1]# git add .
+[root@ip-172-31-45-78 repo1]# git commit -m "creating files f1, f2, and f3"
+[main (root-commit) 6ff2d03] creating files f1, f2, and f3
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f1
+ create mode 100644 f2
+ create mode 100644 f3
+[root@ip-172-31-45-78 repo1]# git log
+commit 6ff2d037bca1d5ea364e58dc412ffa9634c6d852 (HEAD -> main)
+Author: GVIDUBHUSHANRAO <ayirplnahsuhb@gmail.com>
+Date:   Fri Nov 4 16:29:50 2022 +0000
+
+    creating files f1, f2, and f3
+[root@ip-172-31-45-78 repo1]# git remote -v
+origin  https://github.com/GVIDUBHUSHANRAO/repo1.git (fetch)
+origin  https://github.com/GVIDUBHUSHANRAO/repo1.git (push)
+**********************************************************************************************
+** If we don't wanna provide username and password every time when we use "git push" command, we should do the following setting: 
+[root@ip-172-31-45-78 repo1]# cd
+[root@ip-172-31-45-78 ~]# vi .netrc
+machine github.com
+login GVIDUBHUSHANRAO
+password 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
+:wq
+[root@ip-172-31-45-78 repo1]#
+***********************************************************************************************
+[root@ip-172-31-45-78 repo1]# git push origin main
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 243 bytes | 243.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ * [new branch]      main -> main
+[root@ip-172-31-45-78 repo1]#
+
+** git config:
+* this command sets the author name and email address respectively to be used with your commits
+* Examples:
+1. git config --global user.name "user_name"
+2. git config --global user.email "your_email"
+
+** git add:
+* this command adds files(changes) from working directory to the stagging area(or index in .git)
+* Examples:
+1. git add file_name
+2. git add . => add all files and folders to stagging area
+
+** git commit:
+* this command creates a commit, which is like a snapshot of your repository
+* some people say this command add changes from stagging area to local repository
+* every time a commit is made a SHA-256 key is created and assigned to that commit. If we wanted to retrieve code at that commit it is possible using this id
+* Examples:
+1. git commit -m "message"
+
+** git revert:
+* git revert records/create a new change with the opposite effect and thereby undo the specified commit. Gererally, git revert is a commit.
+* It does not delete any data in the process
+* Example:
+1.
+[root@ip-172-31-5-245 repo1]# ls
+f1  f2
+[root@ip-172-31-5-245 repo1]# vi file1
+I am attending DevOps lab
+:wq
+[root@ip-172-31-5-245 repo1]# git add .
+[root@ip-172-31-5-245 repo1]# git commit -m "creating file1"
+.
+.
+[root@ip-172-31-5-245 repo1]# git log --oneline
+dd3bc4c (HEAD -> main) creating file1 
+.
+.
+[root@ip-172-31-5-245 repo1]# git revert dd3bc4c
+ 1 file changed, 1 deletion(-)
+[root@ip-172-31-5-245 repo1]# ls
+f1  f2
+[root@ip-172-31-5-245 repo1]# git log --oneline
+9aadf9e (HEAD -> main) Revert "creating file1"
+dd3bc4c creating file1
+.
+.
+[root@ip-172-31-5-245 repo1]# git revert 9aadf9e
+ 1 file changed, 1 insertion(+)
+[root@ip-172-31-5-245 repo1]# ls
+f1  f2  file1
+[root@ip-172-31-5-245 repo1]# cat file1
+I am attending DevOps lab
+[root@ip-172-31-5-245 repo1]# git show 9aadf9e
+.
+.
+
+
+** git reset:
+* the term reset stands for undoing changes. The git reset command is used to reset the changes.
+* the git reset command has three core forms of invocation. These forms are as follows,
+1. git reset --soft
+2. git reset --mixed (or) git reset
+3. git reset --hard
+* there are three workspaces:
+a. working directory
+b. stagging area
+c. commit history
+* --hard => make/apply changes to working directory, stagging area, and commit history
+* --mixed => make/apply changes to stagging area and commit history
+* --soft => make/apply changes to commit history
+* Examples:
+1.
+[root@ip-172-31-2-228 repo1]# ls -a
+.  ..  f1  f2  f3  .git
+[root@ip-172-31-2-228 repo1]# touch f4
+[root@ip-172-31-2-228 repo1]# git add f4
+[root@ip-172-31-2-228 repo1]# git status
+On branch main
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   f4
+
+[root@ip-172-31-2-228 repo1]# git log --oneline
+13c0d93 (HEAD -> main) creating f1, f2, and f3
+543cdd2 deleting f1, f2, and f3
+664d805 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# git reset --hard
+HEAD is now at 13c0d93 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# git status
+On branch main
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+nothing to commit, working tree clean
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3
+[root@ip-172-31-2-228 repo1]#
+
+2.
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3
+[root@ip-172-31-2-228 repo1]# touch f4
+[root@ip-172-31-2-228 repo1]# git add f4
+[root@ip-172-31-2-228 repo1]# git status
+On branch main
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   f4
+
+[root@ip-172-31-2-228 repo1]# git reset --mixed
+[root@ip-172-31-2-228 repo1]# git status
+On branch main
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        f4
+
+nothing added to commit but untracked files present (use "git add" to track)
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3  f4
+[root@ip-172-31-2-228 repo1]#
+
+3.
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3  f4
+[root@ip-172-31-2-228 repo1]# git add .
+[root@ip-172-31-2-228 repo1]# git commit -m "creating f4"
+[main 9a5d572] creating f4
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f4
+[root@ip-172-31-2-228 repo1]# git log --oneline
+9a5d572 (HEAD -> main) creating f4
+13c0d93 creating f1, f2, and f3
+543cdd2 deleting f1, f2, and f3
+664d805 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# git reset --soft
+[root@ip-172-31-2-228 repo1]# git log --oneline
+9a5d572 (HEAD -> main) creating f4
+13c0d93 creating f1, f2, and f3
+543cdd2 deleting f1, f2, and f3
+664d805 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# git reset --soft 13c0d93
+[root@ip-172-31-2-228 repo1]# git log --oneline
+13c0d93 (HEAD -> main) creating f1, f2, and f3
+543cdd2 deleting f1, f2, and f3
+664d805 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3  f4
+[root@ip-172-31-2-228 repo1]# git status
+On branch main
+Your branch is based on 'origin/main', but the upstream is gone.
+  (use "git branch --unset-upstream" to fixup)
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   f4
+
+[root@ip-172-31-2-228 repo1]#
+
+4.
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3  f4
+[root@ip-172-31-2-228 repo1]# git commit -m "creating f4"
+[main bc1e15b] creating f4
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f4
+[root@ip-172-31-2-228 repo1]#
+[root@ip-172-31-2-228 repo1]# git log --oneline
+bc1e15b (HEAD -> main) creating f4
+13c0d93 creating f1, f2, and f3
+543cdd2 deleting f1, f2, and f3
+664d805 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# git reset --hard
+HEAD is now at bc1e15b creating f4
+[root@ip-172-31-2-228 repo1]# git log --oneline
+bc1e15b (HEAD -> main) creating f4
+13c0d93 creating f1, f2, and f3
+543cdd2 deleting f1, f2, and f3
+664d805 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3  f4
+[root@ip-172-31-2-228 repo1]# git reset --hard 13c0d93
+HEAD is now at 13c0d93 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# git log --oneline
+13c0d93 (HEAD -> main) creating f1, f2, and f3
+543cdd2 deleting f1, f2, and f3
+664d805 creating f1, f2, and f3
+[root@ip-172-31-2-228 repo1]# ls
+f1  f2  f3
+[root@ip-172-31-2-228 repo1]#  
+ 
+
+**git status:
+* the git ststus command is used to display the state of the repository and staging area. It allows to see the tracked, untracked files and changes
+
+**git log:
+* the advantage of a version control system is that it records changes. These records allow us to retrieve the data like commits, figuring out bugs, updates. But, all of this history will be useless if we cannot navigate it. At this point, we need the git log command
+* git log is a utility tool to review and read a history of everything that happens to a repository
+* syntax:
+git log options
+* commands:
+1. git log => this command is lists all the recent commits. Each commit contains some unique sha-id, which is generated by the SHA algorithm. It also includes the date, time, author, and some additional details
+2. git log --oneline => shows one commit per line, the first seven characters of the commit SHA and the commit message
+3. git log --stat => this command displays the files that have been modified. It also shows the number of lines and a summary line of the total records that have been updated
+4. git log --patch (or) git log -p => this command displays the files that have been modified. It also shows the location of the added, removed, and updated lines
+5. git log --graph (or) git log --graph --oneline --decorate => this command allows viewing your git log as a graph. To list the commits in the form of a graph
+v.v.imp 6. git log --oneline --all => it is usefull to see commits downloaded when we use "git fetch" command
+* filtering commands:
+1. git log -3 => by amount
+2. git log --after="yy-mm-dd" (or) git log --before="yesterday" (or) ="1 week ago" (or) ="21 days ago" => by date and time
+3. git log -- author="author_name" => by author
+4. git log --grep="commit_message" => by commit message
+
+** git show:
+* this command shows the metadata and content changes of the specified commit
+* syntax:
+git show commit_id/sha_id
+
+*****branches*****
+* When we create a repository, a default branch called main/master is created.
+* Branches allow you to work on different parts of a project without impacting the main branch, when the work is complete, a branch can be merged with the main project. For example, With a new branch called new-design, edit the code directly without impacting the main branch. Lets say there is an EMERGENCY! There is an unrelated error somewhere else in the project that needs to be fixed ASAP! Now create a new branch from the main project called small-error-fix, then fix the unrelated error and merge the small-error-fix branch with the main branch. You go back to the new-design branch, and finish the work there. Merge the new-design branch with main branch.
+* You can even switch between branches and work on different projects without them interfering with each other.
+**vvimp**
+-> you have to create a branch from any other branch means you are inheriting all the properties of that branch
+* commands:
+1. git branch (or) git branch -a (or) git branch --list => lists all the branches in the current repository
+2. git branch branch_name => to create a new branch
+3. git branch -d branch_name (or) git branch -D branch_name => to delete specific branch
+4. git push URL_name --delete branch_name => to delete remote branch from github
+5. git checkout branch_name => to switch between branches
+6. git branch -m old_branch new_branch => to rename branch
+7. git checkout commit_id => head pointer will point to perticular commit_id
+* Examples:
+1.
+[root@ip-172-31-5-22 repo1]# git branch
+* main
+[root@ip-172-31-5-22 repo1]# git branch dev
+[root@ip-172-31-5-22 repo1]# git branch test
+[root@ip-172-31-5-22 repo1]# git branch release
+[root@ip-172-31-5-22 repo1]# git branch
+  dev
+* main
+  release
+  test
+***** here you have created sub branches dev, test, and release from main branch
+[root@ip-172-31-5-22 repo1]# git remote -v
+origin  https://github.com/GVIDUBHUSHANRAO/repo1.git (fetch)
+origin  https://github.com/GVIDUBHUSHANRAO/repo1.git (push)
+[root@ip-172-31-5-22 repo1]# git push origin main
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 227 bytes | 227.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ * [new branch]      main -> main
+[root@ip-172-31-5-22 repo1]# git push origin dev
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'dev' on GitHub by visiting:
+remote:      https://github.com/GVIDUBHUSHANRAO/repo1/pull/new/dev
+remote:
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ * [new branch]      dev -> dev
+[root@ip-172-31-5-22 repo1]# git push origin test
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'test' on GitHub by visiting:
+remote:      https://github.com/GVIDUBHUSHANRAO/repo1/pull/new/test
+remote:
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ * [new branch]      test -> test
+[root@ip-172-31-5-22 repo1]# git push origin release
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'release' on GitHub by visiting:
+remote:      https://github.com/GVIDUBHUSHANRAO/repo1/pull/new/release
+remote:
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ * [new branch]      release -> release
+[root@ip-172-31-5-22 repo1]# git checkout dev
+Switched to branch 'dev'
+[root@ip-172-31-5-22 repo1]# ls
+f1  f2
+[root@ip-172-31-5-22 repo1]# git branch
+* dev
+  main
+  release
+  test
+*** from dev we create feature branches
+[root@ip-172-31-5-22 repo1]# git branch feature
+[root@ip-172-31-5-22 repo1]# git push origin feature
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'feature' on GitHub by visiting:
+remote:      https://github.com/GVIDUBHUSHANRAO/repo1/pull/new/feature
+remote:
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ * [new branch]      feature -> feature
+[root@ip-172-31-5-22 repo1]# git branch
+* dev
+  feature
+  main
+  release
+  test
+[root@ip-172-31-5-22 repo1]# git checkout feature
+Switched to branch 'feature'
+[root@ip-172-31-5-22 repo1]# ls
+f1  f2
+[root@ip-172-31-5-22 repo1]# touch f4
+[root@ip-172-31-5-22 repo1]# git add .
+[root@ip-172-31-5-22 repo1]# git commit -m "f4"
+[feature ad5175e] f4
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f4
+[root@ip-172-31-5-22 repo1]# git push
+fatal: The current branch feature has no upstream branch.
+To push the current branch and set the remote as upstream, use
+
+    git push --set-upstream origin feature
+
+To have this happen automatically for branches without a tracking
+upstream, see 'push.autoSetupRemote' in 'git help config'.
+
+[root@ip-172-31-5-22 repo1]# git push --set-upstream origin feature
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 243 bytes | 243.00 KiB/s, done.
+Total 2 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+   fc5a34a..ad5175e  feature -> feature
+branch 'feature' set up to track 'origin/feature'.
+[root@ip-172-31-5-22 repo1]# touch f5 f6
+[root@ip-172-31-5-22 repo1]# git add .
+[root@ip-172-31-5-22 repo1]# git commit -m "f5 and f6"
+[feature 673a465] f5 and f6
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 f5
+ create mode 100644 f6
+[root@ip-172-31-5-22 repo1]# git push
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 257 bytes | 257.00 KiB/s, done.
+Total 2 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+   ad5175e..673a465  feature -> feature
+[root@ip-172-31-5-22 repo1]#
+*** as you can see there is no need to mention "origin feature" in git push command because we set "remote as upstream"
+
+2.
+[root@ip-172-31-14-50 repo1]# git log --oneline
+c9e9ca9 (HEAD -> main, origin/main, origin/HEAD) Update f2
+4ef735c Update f1
+92a4c0a Update f5
+8ad5f6b Update f4
+1ea2959 Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
+[root@ip-172-31-14-50 repo1]# git show HEAD
+commit c9e9ca93fd55b5ab31b38a0739351b53544fd333 (HEAD -> main, origin/main, origin/HEAD)
+Author: GVIDUBHUSHANRAO <89654262+GVIDUBHUSHANRAO@users.noreply.github.com>
+Date:   Mon Nov 14 22:43:37 2022 +0530
+
+    Update f2
+
+diff --git a/f2 b/f2
+index e69de29..946b7ea 100644
+--- a/f2
++++ b/f2
+@@ -0,0 +1 @@
++inside f2^M
+[root@ip-172-31-14-50 repo1]# git checkout 8ad5f6b
+Note: switching to '8ad5f6b'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+HEAD is now at 8ad5f6b Update f4
+[root@ip-172-31-14-50 repo1]# git log --oneline
+8ad5f6b (HEAD) Update f4
+1ea2959 Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
+[root@ip-172-31-14-50 repo1]# git checkout main
+Previous HEAD position was 8ad5f6b Update f4
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+[root@ip-172-31-14-50 repo1]# git log --oneline
+c9e9ca9 (HEAD -> main, origin/main, origin/HEAD) Update f2
+4ef735c Update f1
+92a4c0a Update f5
+8ad5f6b Update f4
+1ea2959 Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
+
+
+
+
+** git merge, git rebase and squash(github):
+* merge, rebase and squash integrate changes from one branch into another. where they differ is how its done.
+* merge will creates a new commit after integrating and it preserves history
+* rebase will integrate changes but it will not create any commit and it will not preserve history by refactoring history in linear way
+* squash will squash the previous commits into one and there is no CLI command for doing it. If we want to squash then we have to do it in github
+* it is always preferred to do merging in github rather than doing it in git
+* to check the difference between git merge and git rebase use the following command,
+# git log --oneline --graph --decorate
+* syntax:
+git merge source_branch
+(or)
+git merge commit_id
+* there are two steps involved in merging from source_branch to target_branch, 
+step:1: checkout to target branch using command, # git checkout target_branch
+step:2: now merge using command, # git merge source_branch (or) # git rebase source_branch
+
+* Examples:
+
+
+** git stash:
+* sometimes you want to switch the branches, but you are working on an incomplete part of your current project. You don't want to make a commit of half-done work. Git stashing allows you to do so. The git stash command enables you to switch branches without committing the current branch
+* stashing takes the messy state of your working directory, and temporarily save it in temporary memory for further use
+* you can't stash an empty file directly from working directory. First you need to add to staging area than you can stash it
+* after stashing use "git status" to check
+* commands:
+1. git stash => to save changes temporarily
+2. git stash save "stashing_message" => to stash a change with message
+3. git stash list => to check the stored stashes
+4. git stash apply => to re-apply the changes (or) to restore the last stash
+5. git stash apply stash_id (or) git stash apply stash@{0} => to restore a perticular stash
+6. git stash show (or) git stash show -p => to see the changes in the file before and after stash operation
+7. git stash pop => the git stash pop command is quite similar to git stash apply. The main difference between both of these commands is stash pop command that deletes the stash from the stack after it is applied
+8. git stash drop (or) git stash drop stash_id => it is used to delete a stash from the queue. Caution should be taken before using stash drop command, as it is difficult to undo if once applied
+9. git stash clear => it allows deleting all the available stashes at once
+10. git stash branch branch_name => it allows the user to stash work on a separate branch to avoid conflicts
+* Examples:
+[root@ip-172-31-9-123 repo1]# ls
+f1  f2  f3  f4  f5
+[root@ip-172-31-9-123 repo1]# vi f2
+this is vidu
+from mahabubnager
+:wq
+[root@ip-172-31-9-123 repo1]# git status
+On branch dev
+Your branch is ahead of 'origin/dev' by 3 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   f2
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[root@ip-172-31-9-123 repo1]# git stash
+Saved working directory and index state WIP on dev: 91a0660 creating f5
+[root@ip-172-31-9-123 repo1]# ls
+f1  f2  f3  f4  f5
+[root@ip-172-31-9-123 repo1]# cat f2
+[root@ip-172-31-9-123 repo1]# git status
+On branch dev
+Your branch is ahead of 'origin/dev' by 3 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+[root@ip-172-31-9-123 repo1]# git stash list
+stash@{0}: WIP on dev: 91a0660 creating f5
+[root@ip-172-31-9-123 repo1]# git stash apply stash@{0}
+On branch dev
+Your branch is ahead of 'origin/dev' by 3 commits.
+  (use "git push" to publish your local commits)
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   f2
+
+no changes added to commit (use "git add" and/or "git commit -a")
+[root@ip-172-31-9-123 repo1]# cat f2
+this is vidu
+from mahabubnagar
+
+** git fetch:
+* git fetch only uploads/downloads new data from a remote repository. It will not update those changes to local repository
+* to chech new fetched commits, we have to use following command
+# git log --all (or) git log --oneline --all
+* to update we have to use following command,
+# git merge FETCH_HEAD (or) git merge latest_commit_id
+* commands:
+1. git fetch => fetches current remote repository
+2. git fetch repo_url => to fetch the complete remote repository
+3. git fetch repo_url branch_name => to fetch a specific branch
+4. git fetch --all => all branches simultaneously
+5. git fetch origin (or) git fetch origin branch_name
+* when no remote server is specified, by default, it will fetch the origin remote
+* Example:
+1.
+[root@ip-172-31-14-50 repo1]# git log --oneline
+1cadcf0 (HEAD -> main) creating f3, f4, and f5
+fc5a34a (origin/test, origin/release, origin/main, origin/dev, origin/HEAD) f1 and f2
+[root@ip-172-31-14-50 repo1]# git fetch
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 659 bytes | 659.00 KiB/s, done.
+From https://github.com/GVIDUBHUSHANRAO/repo1
+   1cadcf0..1ea2959  main       -> origin/main
+[root@ip-172-31-14-50 repo1]# cat f3
+[root@ip-172-31-14-50 repo1]# git status
+On branch main
+Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+[root@ip-172-31-14-50 repo1]# git merge 1ea2959
+Updating 1cadcf0..1ea2959
+Fast-forward
+ f3 | 4 ++++
+ 1 file changed, 4 insertions(+)
+[root@ip-172-31-14-50 repo1]# cat f3
+vidu
+sabrina
+ariana
+selena
+[root@ip-172-31-14-50 repo1]# git log --oneline
+1ea2959 (HEAD -> main, origin/main, origin/HEAD) Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
+
+2.
+[root@ip-172-31-14-50 repo1]# git log --oneline
+1ea2959 (HEAD -> main, origin/main, origin/HEAD) Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
+[root@ip-172-31-14-50 repo1]# git show FETCH_HEAD
+commit 1ea295982eab627f0bc60cd160b67681998f0188 (HEAD -> main, origin/main, origin/HEAD)
+Author: GVIDUBHUSHANRAO <89654262+GVIDUBHUSHANRAO@users.noreply.github.com>
+Date:   Mon Nov 14 21:41:27 2022 +0530
+
+    Update f3
+
+diff --git a/f3 b/f3
+index e69de29..91c0a51 100644
+--- a/f3
++++ b/f3
+@@ -0,0 +1,4 @@
++vidu^M
++sabrina^M
++ariana^M
++selena^M
+[root@ip-172-31-14-50 repo1]# git fetch
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (8/8), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 6 (delta 1), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (6/6), 1.34 KiB | 1.34 MiB/s, done.
+From https://github.com/GVIDUBHUSHANRAO/repo1
+   1ea2959..92a4c0a  main       -> origin/main
+[root@ip-172-31-14-50 repo1]# git status
+On branch main
+Your branch is behind 'origin/main' by 2 commits, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+[root@ip-172-31-14-50 repo1]# git show FETCH_HEAD
+commit 92a4c0a1cc6d289a4b7fb0269b07b312cfced55a (origin/main, origin/HEAD)
+Author: GVIDUBHUSHANRAO <89654262+GVIDUBHUSHANRAO@users.noreply.github.com>
+Date:   Mon Nov 14 22:20:01 2022 +0530
+
+    Update f5
+
+diff --git a/f5 b/f5
+index e69de29..8553e61 100644
+--- a/f5
++++ b/f5
+@@ -0,0 +1 @@
++we are inside f5 to test "git fetch"^M
+[root@ip-172-31-14-50 repo1]# git log --oneline --all
+92a4c0a (origin/main, origin/HEAD) Update f5
+8ad5f6b Update f4
+1ea2959 (HEAD -> main) Update f3
+1cadcf0 creating f3, f4, and f5
+673a465 (origin/feature) f5 and f6
+ad5175e f4
+fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
+[root@ip-172-31-14-50 repo1]# git merge FETCH_HEAD (or) git merge latest_commit_id
+Updating 1ea2959..92a4c0a
+Fast-forward
+ f4 | 1 +
+ f5 | 1 +
+ 2 files changed, 2 insertions(+)
+[root@ip-172-31-14-50 repo1]# cat f4
+we are inside f4 to test "git fetch"
+[root@ip-172-31-14-50 repo1]# cat f5
+we are inside f5 to test "git fetch"
+[root@ip-172-31-14-50 repo1]# git log --oneline
+92a4c0a (HEAD -> main, origin/main, origin/HEAD) Update f5
+8ad5f6b Update f4
+1ea2959 Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
+[root@ip-172-31-14-50 repo1]#
+
+
+** git pull:
+* git pull = git fetch + git merge
+* commands:
+1. git pull
+2. git pull repo_url
+3. git pull alias_name_of_repo branch_name
+
+
+** git merge conflict:
+* when two branches(two users) are trying to merge, and both are edited at the same time and in the same file, git wont be able to identify which version is to take for changes. Such a situation is called merge conflict
+* Example:
+1. 
+step:1: in github, in repository repo1, create a file with name "merconfile" in branch main/master
+step:2: do the following in putty/server
+[root@ip-172-31-41-55 repo1]# cat <<EOF>> merconfile
+> editing merconfile in server
+> EOF
+[root@ip-172-31-41-55 repo1]# ls
+f1  f2  f3  f4  f5  f7  merconfile
+[root@ip-172-31-41-55 repo1]# cat merconfile
+editing merconfile in server
+[root@ip-172-31-41-55 repo1]# git add .
+[root@ip-172-31-41-55 repo1]# git commit -m "creating merconfile in server"
+[main 3d8c155] creating merconfile in server
+ 1 file changed, 1 insertion(+)
+ create mode 100644 merconfile
+[root@ip-172-31-41-55 repo1]# git log --oneline
+3d8c155 (HEAD -> main) creating merconfile in server
+c6286a2 (origin/main, origin/HEAD) Create f7
+c9e9ca9 Update f2
+4ef735c Update f1
+92a4c0a Update f5
+8ad5f6b Update f4
+1ea2959 Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release) f1 and f2
+[root@ip-172-31-41-55 repo1]# git push
+Username for 'https://github.com': GVIDUBHUSHANRAO
+Password for 'https://GVIDUBHUSHANRAO@github.com':
+To https://github.com/GVIDUBHUSHANRAO/repo1.git
+ ! [rejected]        main -> main (non-fast-forward)
+error: failed to push some refs to 'https://github.com/GVIDUBHUSHANRAO/repo1.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+[root@ip-172-31-41-55 repo1]# git config pull.rebase false
+[root@ip-172-31-41-55 repo1]# git pull
+Auto-merging merconfile
+CONFLICT (add/add): Merge conflict in merconfile
+Automatic merge failed; fix conflicts and then commit the result.
+[root@ip-172-31-41-55 repo1]# cat merconfile
+<<<<<<< HEAD
+editing merconfile in server
+=======
+editing merconfile in github
+>>>>>>> a02fdf899654274585d263a78be164aacfdde156
+[root@ip-172-31-41-55 repo1]# git log --oneline
+3d8c155 (HEAD -> main) creating merconfile in server
+c6286a2 Create f7
+c9e9ca9 Update f2
+4ef735c Update f1
+92a4c0a Update f5
+8ad5f6b Update f4
+1ea2959 Update f3
+1cadcf0 creating f3, f4, and f5
+fc5a34a (origin/test, origin/release) f1 and f2
+
+
+** git token:
+* usage:
+1. we can't give password to other people who want to access your github account, so we generate a token with limited permissions and expiry date
+2. if we want to push the commits/data from local repository to remote repository we need authentication, here we can't use password because it is no longer supported. so we use "git token" for authentication
+* how to generate a token?
+goto "settings" => click on "Developer settings" => click on "Personal access token" => click on "Generate new token"
+
+** git cherry-pick:
+* Cherry-picking in Git stands for applying some commit from one branch into another branch
+* Usage of cherry-pick:
+1. It is a handy tool for team collaboration.
+2. It is necessary in case of bug fixing because bugs are fixed and tested in the development branch with their commits.
+3. It is mostly used in undoing changes and restoring lost commits.
+4. You can avoid useless conflicts by using git cherry-pick instead of other options.
+5. It is a useful tool when a full branch merge is not possible due to incompatible versions in the various branches.
+6. The git cherry-pick is used to access the changes introduced to a sub-branch, without changing the branch.
+* commands:
+1. git cherry-pick commit_id
+
+
+
+
+
+
+
