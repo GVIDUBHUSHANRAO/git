@@ -896,6 +896,9 @@ goto "settings" => click on "Developer settings" => click on "Personal access to
 * commands:
 1. git cherry-pick commit_id
 
+** git tag:
+* to apply tags to commit ids
+* git tag -a tag_name -m "tag_info" commit_id
 
 
 
