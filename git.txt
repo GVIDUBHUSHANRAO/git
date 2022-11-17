@@ -604,11 +604,11 @@ fc5a34a (origin/test, origin/release, origin/dev) f1 and f2
 
 
 
-** git merge, git rebase and squash(github):
+** git merge, git rebase and squash:
 * merge, rebase and squash integrate changes from one branch into another. where they differ is how its done.
 * merge will creates a new commit after integrating and it preserves history
 * rebase will integrate changes but it will not create any commit and it will not preserve history by refactoring history in linear way
-* squash will squash the previous commits into one and there is no CLI command for doing it. If we want to squash then we have to do it in github
+* squash will squash the previous commits into one. We dont have perticular command for it, we have to use command "git rebase -i" to squash the commits
 * it is always preferred to do merging in github rather than doing it in git
 * to check the difference between git merge and git rebase use the following command,
 # git log --oneline --graph --decorate
@@ -899,6 +899,8 @@ goto "settings" => click on "Developer settings" => click on "Personal access to
 ** git tag:
 * to apply tags to commit ids
 * git tag -a tag_name -m "tag_info" commit_id
+* git show tag_name
+* git push --tags alias_name_of_repo branch_name
 
 
 
